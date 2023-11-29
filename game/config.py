@@ -1,0 +1,13 @@
+class GameConfig:
+
+    CELL_SIZE = 27
+    GRID_SIZE = 21
+    TOKEN_SIZE = 25
+    SCREEN_WIDTH = CELL_SIZE * GRID_SIZE
+    SCREEN_HEIGHT = CELL_SIZE * GRID_SIZE
+
+    COLOR_BLACK = (0, 0, 0)
+    COLOR_BLUE = (0, 0, 255)
+    COLOR_GREEN = (0, 255, 0)
+    COLOR_RED = (255, 0, 0)
+    COLOR_YELLOW = (255, 255, 0)
