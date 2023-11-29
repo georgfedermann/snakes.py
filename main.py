@@ -27,7 +27,7 @@ def main():
         if game_state.check_food_eaten():
             game_state.snake.length += game_state.food.category + 1
             game_state.food = None
-        if not game_state.food:
+        while not game_state.food or game_state.snake.inside_snake(game_state.food.coords):
             game_state.food = Food.create_random_food()
         game_state.food.render_food(screen)
         game_state.snake.truncate_snake()
@@ -46,6 +46,8 @@ def main():
                     game_state.dx, game_state.dy = 0, 1
                 elif event.key == pygame.K_x:
                     game_state.dx, game_state.dy = 0, 0
+                elif eventkey == pygame.K_q:
+                    keep_running = False
 
         pygame.display.update()
         clock.tick(FPS)
