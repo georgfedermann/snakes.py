@@ -7,13 +7,12 @@ from game.food import Food
 from game.state import GameState
 
 import pygame
-import random
 
 def main():
     screen = pygame.display.set_mode(
             (GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT))
+    pygame.display.set_caption('Snakes!')
 
-    # Define the game clock
     clock = pygame.time.Clock()
     FPS = 5
 
@@ -21,16 +20,16 @@ def main():
     game_state = GameState()
 
     keep_running = True
-    while keep_running:
+    while keep_running and game_state.snake.status == "ALIVE":
         game_state.snake.calculate_snake_move(game_state)
         game_state.snake.render_snake(screen)
+        game_state.snake.truncate_snake()
         if game_state.check_food_eaten():
             game_state.snake.length += game_state.food.category + 1
             game_state.food = None
         while not game_state.food or game_state.snake.inside_snake(game_state.food.coords):
             game_state.food = Food.create_random_food()
         game_state.food.render_food(screen)
-        game_state.snake.truncate_snake()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -46,7 +45,7 @@ def main():
                     game_state.dx, game_state.dy = 0, 1
                 elif event.key == pygame.K_x:
                     game_state.dx, game_state.dy = 0, 0
-                elif eventkey == pygame.K_q:
+                elif event.key == pygame.K_q:
                     keep_running = False
 
         pygame.display.update()
